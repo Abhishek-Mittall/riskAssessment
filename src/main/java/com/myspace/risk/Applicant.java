@@ -122,9 +122,6 @@ public class Applicant implements java.io.Serializable {
 
 	public java.lang.String getCreditCardDemographicAssessment() {
 
-		if (this.demographicAssessment.compareTo("Unsuitable") == 0) {
-			this.creditCardDemographicAssessment = "Unsuitable";
-		}
 		return this.creditCardDemographicAssessment;
 	}
 
