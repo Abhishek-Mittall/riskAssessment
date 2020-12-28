@@ -1,6 +1,8 @@
+package com.myspace.risk;
+
 //package com.myspace.risk;
 
-package com.myspace.risk;
+/*package com.myspace.risk;
 
 // Debug if Applicant is not in working memory
 rule "Print in working memory final-assessment" 
@@ -155,4 +157,4 @@ rule "refresh"
 	then
 	    System.out.println("Rule fired: " + drools.getRule().getName());
         update($app)
-end
+end*/

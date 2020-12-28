@@ -26,8 +26,6 @@ public class Applicant implements java.io.Serializable {
 	private java.lang.Integer numberOfDefaultPaymentsLast12Months;
 	@org.kie.api.definition.type.Label("Years With Bank")
 	private java.lang.Integer yearsWithBank;
-	@org.kie.api.definition.type.Label("Demographic Assessment")
-	private java.lang.String demographicAssessment;
 
 	@org.kie.api.definition.type.Label("Credit CardD emographic Assessment")
 	private java.lang.String creditCardDemographicAssessment;
@@ -112,14 +110,6 @@ public class Applicant implements java.io.Serializable {
 		this.yearsWithBank = yearsWithBank;
 	}
 
-	public java.lang.String getDemographicAssessment() {
-		return this.demographicAssessment;
-	}
-
-	public void setDemographicAssessment(java.lang.String demographicAssessment) {
-		this.demographicAssessment = demographicAssessment;
-	}
-
 	public java.lang.String getCreditCardDemographicAssessment() {
 
 		return this.creditCardDemographicAssessment;
@@ -132,23 +122,13 @@ public class Applicant implements java.io.Serializable {
 
 	public java.lang.Integer getCreditScore() {
 
-		if (this.existingCustomer == false) {
-			this.creditScore = 350;
-			return this.creditScore;
-		}
-
-		if (this.age < 18) {
-			this.creditScore = 350;
-			return this.creditScore;
-		}
-
-		if (this.demographicAssessment.compareTo("Unsuitable") == 0) {
-			this.creditScore = 0;
+		if (this.bankruptcy == true) {
+			this.creditScore = 50;
 			return this.creditScore;
 		}
 
 		if (this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
-			this.creditScore = 0;
+			this.creditScore = 50;
 			return this.creditScore;
 		}
 		return this.creditScore;
@@ -160,17 +140,7 @@ public class Applicant implements java.io.Serializable {
 
 	public java.lang.Integer getTotalCreditScore() {
 
-		if (this.existingCustomer == false) {
-			this.totalCreditScore = 350;
-			return this.totalCreditScore;
-		}
-
-		if (this.age < 18) {
-			this.totalCreditScore = 350;
-			return this.totalCreditScore;
-		}
-
-		if (this.demographicAssessment.compareTo("Unsuitable") == 0) {
+		if (this.bankruptcy == true) {
 			this.totalCreditScore = 350;
 			return this.totalCreditScore;
 		}
@@ -190,23 +160,7 @@ public class Applicant implements java.io.Serializable {
 	public java.lang.Boolean getApproved() {
 
 		this.approved = true;
-
-		if (this.existingCustomer == false) {
-			this.approved = false;
-			return this.approved;
-		}
-
-		if (this.age < 18) {
-			this.approved = false;
-			return this.approved;
-		}
-
 		if (this.bankruptcy == true) {
-			this.approved = false;
-			return this.approved;
-		}
-
-		if (this.demographicAssessment.compareTo("Unsuitable") == 0) {
 			this.approved = false;
 			return this.approved;
 		}
@@ -233,33 +187,28 @@ public class Applicant implements java.io.Serializable {
 
 		this.explanation = "Approved because all the conditions are suitable and total credit score is more than 500";
 
-		if (this.existingCustomer == false) {
-			this.explanation = "Customer is not an existing customer";
+		if (this.age < 18) {
+			this.explanation = "Application is rejected because Customer is Underage";
 			return this.explanation;
 		}
 
-		if (this.age < 18) {
-			this.explanation = "Customer is underage";
+		if (this.existingCustomer == false) {
+			this.explanation = "Application is rejected because Customer is not an existing customer";
 			return this.explanation;
 		}
 
 		if (this.bankruptcy == true) {
-			this.explanation = "Customer is bankrupt";
-			return this.explanation;
-		}
-
-		if (this.demographicAssessment.compareTo("Unsuitable") == 0) {
-			this.explanation = "Customer fails demographicAssessment";
+			this.explanation = "Application is rejected because Customer is bankrupt";
 			return this.explanation;
 		}
 
 		if (this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
-			this.explanation = "Customer fails creditCardDemographicAssessment";
+			this.explanation = "Application is rejected because Customer fails Credit Card Demographic Assessment";
 			return this.explanation;
 		}
 
 		if (this.totalCreditScore < 500) {
-			this.explanation = "Rejected because all the conditions are suitable but total credit score is less than 500";
+			this.explanation = "Rejected because all the conditions are suitable but Total Credit Score is less than 500";
 			return this.explanation;
 		}
 
@@ -268,32 +217,6 @@ public class Applicant implements java.io.Serializable {
 	}
 
 	public void setExplanation(java.lang.String explanation) {
-		this.explanation = explanation;
-	}
-
-	public Applicant(java.lang.Integer age, java.lang.Boolean existingCustomer,
-			java.lang.Integer annualIncome, java.lang.Integer mortgageAmount,
-			java.lang.Integer accountBalance, java.lang.String cardType,
-			java.lang.Boolean bankruptcy,
-			java.lang.Integer numberOfDefaultPaymentsLast12Months,
-			java.lang.Integer yearsWithBank, java.lang.Boolean approved,
-			java.lang.String explanation,
-			java.lang.String demographicAssessment,
-			java.lang.String creditCardDemographicAssessment,
-			java.lang.Integer creditScore, java.lang.Integer totalCreditScore) {
-		this.age = age;
-		this.existingCustomer = existingCustomer;
-		this.annualIncome = annualIncome;
-		this.mortgageAmount = mortgageAmount;
-		this.accountBalance = accountBalance;
-		this.bankruptcy = bankruptcy;
-		this.numberOfDefaultPaymentsLast12Months = numberOfDefaultPaymentsLast12Months;
-		this.yearsWithBank = yearsWithBank;
-		this.demographicAssessment = demographicAssessment;
-		this.creditCardDemographicAssessment = creditCardDemographicAssessment;
-		this.creditScore = creditScore;
-		this.totalCreditScore = totalCreditScore;
-		this.approved = approved;
 		this.explanation = explanation;
 	}
 
@@ -335,11 +258,11 @@ public class Applicant implements java.io.Serializable {
 			java.lang.Integer annualIncome, java.lang.Integer mortgageAmount,
 			java.lang.Integer accountBalance, java.lang.Boolean bankruptcy,
 			java.lang.Integer numberOfDefaultPaymentsLast12Months,
-			java.lang.String demographicAssessment,
+			java.lang.Integer yearsWithBank,
 			java.lang.String creditCardDemographicAssessment,
 			java.lang.Integer creditScore, java.lang.Integer totalCreditScore,
-			java.lang.Integer yearsWithBank, java.lang.Boolean approved,
-			java.lang.String explanation) {
+			java.lang.String explanation, java.lang.Boolean approved,
+			java.lang.String demographicAssessment) {
 		this.age = age;
 		this.existingCustomer = existingCustomer;
 		this.annualIncome = annualIncome;
@@ -348,7 +271,6 @@ public class Applicant implements java.io.Serializable {
 		this.bankruptcy = bankruptcy;
 		this.numberOfDefaultPaymentsLast12Months = numberOfDefaultPaymentsLast12Months;
 		this.yearsWithBank = yearsWithBank;
-		this.demographicAssessment = demographicAssessment;
 		this.creditCardDemographicAssessment = creditCardDemographicAssessment;
 		this.creditScore = creditScore;
 		this.totalCreditScore = totalCreditScore;
@@ -361,7 +283,6 @@ public class Applicant implements java.io.Serializable {
 			java.lang.Integer accountBalance, java.lang.Boolean bankruptcy,
 			java.lang.Integer numberOfDefaultPaymentsLast12Months,
 			java.lang.Integer yearsWithBank,
-			java.lang.String demographicAssessment,
 			java.lang.String creditCardDemographicAssessment,
 			java.lang.Integer creditScore, java.lang.Integer totalCreditScore,
 			java.lang.String explanation, java.lang.Boolean approved) {
@@ -373,7 +294,6 @@ public class Applicant implements java.io.Serializable {
 		this.bankruptcy = bankruptcy;
 		this.numberOfDefaultPaymentsLast12Months = numberOfDefaultPaymentsLast12Months;
 		this.yearsWithBank = yearsWithBank;
-		this.demographicAssessment = demographicAssessment;
 		this.creditCardDemographicAssessment = creditCardDemographicAssessment;
 		this.creditScore = creditScore;
 		this.totalCreditScore = totalCreditScore;
