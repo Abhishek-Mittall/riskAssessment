@@ -134,7 +134,7 @@ public class Applicant implements java.io.Serializable {
 		if (this.age >= 18
 				&& this.existingCustomer == true
 				&& this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
-			this.totalCreditScore = 475;
+			this.totalCreditScore = 450;
 			return this.totalCreditScore;
 		}
 
