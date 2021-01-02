@@ -122,15 +122,6 @@ public class Applicant implements java.io.Serializable {
 
 	public java.lang.Integer getCreditScore() {
 
-		if (this.bankruptcy == true) {
-			this.creditScore = 50;
-			return this.creditScore;
-		}
-
-		if (this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
-			this.creditScore = 50;
-			return this.creditScore;
-		}
 		return this.creditScore;
 	}
 
@@ -140,13 +131,10 @@ public class Applicant implements java.io.Serializable {
 
 	public java.lang.Integer getTotalCreditScore() {
 
-		if (this.bankruptcy == true) {
-			this.totalCreditScore = 350;
-			return this.totalCreditScore;
-		}
-
-		if (this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
-			this.totalCreditScore = 350;
+		if (this.age >= 18
+				&& this.existingCustomer == true
+				&& this.creditCardDemographicAssessment.compareTo("Unsuitable") == 0) {
+			this.totalCreditScore = 475;
 			return this.totalCreditScore;
 		}
 

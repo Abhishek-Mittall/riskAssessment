@@ -1,9 +1,5 @@
 package com.myspace.risk;
 
-//package com.myspace.risk;
-
-/*package com.myspace.risk;
-
 // Debug if Applicant is not in working memory
 rule "Print in working memory final-assessment" 
     salience -100
@@ -96,18 +92,6 @@ rule "Print in working memory after evaluation"
 
 end
 
-// Reject due to Demographic Assessment Unsuitable
-rule "Demographic Assessment Failed"
-	agenda-group "approval-decision"
-	dialect "mvel"
-	when
-		$app : Applicant( demographicAssessment == "Unsuitable" )
-	then
-	    System.out.println("Rule fired: " + drools.getRule().getName());
-		
-		$app.setExplanation( "Application rejected because Demographic Assessment says Unsuitable");
-end
-
 // Reject due to Credit Card Demographic Assessment Unsuitable
 rule "Credit Card Demographic Assessment Failed"
 	agenda-group "approval-decision"
@@ -125,7 +109,7 @@ rule "Credit Score Rejection"
 	agenda-group "approval-decision"
 	dialect "mvel"
 	when
-		$app : Applicant( demographicAssessment == "Suitable", creditCardDemographicAssessment == "Suitable", totalCreditScore < 500 )
+		$app : Applicant( creditCardDemographicAssessment == "Suitable", totalCreditScore < 500 )
 	then
 	    System.out.println("Rule fired: " + drools.getRule().getName());
 	   
@@ -137,7 +121,7 @@ rule "Credit Score Approval"
 	agenda-group "approval-decision"
 	dialect "mvel"
 	when
-		$app : Applicant( demographicAssessment == "Suitable", creditCardDemographicAssessment == "Suitable", totalCreditScore >= 500 )
+		$app : Applicant(creditCardDemographicAssessment == "Suitable", totalCreditScore >= 500 )
 	then
 	   
 	
@@ -157,4 +141,4 @@ rule "refresh"
 	then
 	    System.out.println("Rule fired: " + drools.getRule().getName());
         update($app)
-end*/
+end
